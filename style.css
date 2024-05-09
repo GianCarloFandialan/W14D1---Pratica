@@ -1,0 +1,46 @@
+/* STILIZZO IL MAIN ED I SUOI CONTENUTI*/
+main{
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1600px;
+}
+
+.input-group, #createSection, .form-select{
+  width: 70vw;
+}
+
+/* STILIZZO PURE LA LISTA CON I SUGGERIMENTI ALLA BARRA DI RICERCA */
+#searchSuggestionList{
+  list-style: none;
+  width: 70vw;
+  margin: 0;
+  padding: 0;
+  border-radius: 2px;
+}
+
+.suggested-item {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border: rgb(222, 226, 230) 2px solid ;
+  border-radius: 2px;
+}
+
+/* STILIZZO LE IMMAGINI NELLE CARD */
+.card img{
+  max-height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* IMPOSTO UNA LARGHEZZA MASSIMA ALLE CARD */
+.col{
+  max-width: 350px;
+}
+
+/* IMPOSTO LA LARGHEZZA DELL'IMMAGINE NELLA PAGINA DETTAGLI LARGA QUANTO QUELLA DEL CONTNEITORE */
+#informationContainer img{
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
