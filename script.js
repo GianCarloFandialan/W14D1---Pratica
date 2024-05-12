@@ -38,23 +38,46 @@ function generateCard(product) {
   listGroup.classList.add("list-group", "list-group-flush");
   card.appendChild(listGroup)
 
-
   //CREO I VARI ELEMENTI CONTENUTI NELLA CARD
   const name = createElementWithText("a", product.name);
   const description = createElementWithText("p", product.description);
   const brand = createElementWithText("li", "Brand: " + product.brand);
   const imageUrl = document.createElement("img");
-  const price = createElementWithText("li", `Price: ${product.price} €`);
+  const price = createElementWithText("li", `Prezzo: ${product.price} €`);
+  const buttonsContainter = createElementWithText("li", '');
+
+  //CREO I BOTTONI PER COMPRARE
+  const buyButton = createElementWithText("button", '');
+  const buyIcon = createElementWithText("i", '');
+
+  //AGGIUNGO IL BADGE PER FAR VEDERE CHE IL PRODOTTO è STATO AGGIUNTO AL CARRELLO
+  const addedToCartBadge = createElementWithText("span", 'Aggiunto al carrello');
+  addedToCartBadge.classList.add("position-absolute", "top-0", "start-50", "translate-middle", "badge", "rounded-pill", "bg-success", "fs-6", "d-none");
+  addedToCartBadge.setAttribute("id", `badge${product._id}`)
+  card.appendChild(addedToCartBadge);
+
+  //AGGIUNGO L'EVENTO PER POTER AGGIUNGERE AL CARRELLO AL BOTTONE
+  buyButton.addEventListener("click", function buy() {
+    addToCart(product)
+  })
 
   //AGGIUNGO LE VARIE CLASSI DI BOOTSRAP A QUESTI ELEMENTI
   name.classList.add("card-title", "fs-5");
   //AGGIUNGO L'ATTRIBUTO HREF AGGIUNGERE IL LINK CON QUESRY STRING
   name.setAttribute("href", `./dettagli.html?id=${product._id}`)
+  name.setAttribute("target", "_blank")
   description.classList.add("card-text");
   brand.classList.add("list-group-item");
   price.classList.add("list-group-item");
+  buttonsContainter.classList.add("list-group-item");
+  buyButton.classList.add("btn", "btn-success");
+  buyIcon.classList.add("bi", "bi-cart");
   //AGGIUNGO L'ATTRIBUTO SRC ALL'IMMAGINE
-  imageUrl.setAttribute("src", `${product.imageUrl}`)
+  imageUrl.setAttribute("src", `${product.imageUrl}`);
+
+  //AGGIUNGO L'ICONa Al BOTTONE E IL BOTTONE AL SUO CONTAINER
+  buyButton.appendChild(buyIcon);
+  buttonsContainter.appendChild(buyButton);
 
   //AGGIUNGO GLI ELEMENTI ALLA CARD
   card.insertBefore(imageUrl, card.firstChild);
@@ -62,6 +85,7 @@ function generateCard(product) {
   cardBody.appendChild(description);
   listGroup.appendChild(brand);
   listGroup.appendChild(price);
+  listGroup.appendChild(buttonsContainter);
 
   //AGGIUNGO LA CARD AL CONTENITORE
   productSection.appendChild(card)
@@ -150,6 +174,9 @@ const searchButton = document.getElementById("searchButton");
 const searchSuggestionList = document.getElementById("searchSuggestionList");
 const sortSelect = document.getElementById("sortSelect");
 
+//CREO LA VARIABILE DEL CONTENITORE DEI CONTENUTI DEL CARRELLO
+const cartItemsContainer = document.getElementById("cartItemsContainer");
+
 //FUNZIONE PER FILTRARE GLI UTENTI BASE ALL'INPUT DI RICERCA
 function filterProducts(products) {
 
@@ -179,16 +206,104 @@ function suggestSearchBar(product) {
   searchSuggestionList.appendChild(li);
 }
 
-//CREO UNA FUNZIONE PER ORDINARE LE VARIE CARD
-function sort(array) {
-  if (sortSelect.value == "Ordine di caricamento") {
-    
-  } else if (sortSelect.value == "Brand") {
-    
-  } else if (sortSelect.value == "Prezzo: crescente") {
-    array.sort
-  } else if (sortSelect.value == "Prezzo: decrescente") {
-    
-  }
+//CREO UNA FUNZIONE PER AGGIUNGERE AL CARRELLO UN PRODOTTO
+function addToCart(product) {
+  //CREO UN ITEM LIST E UN DIV ROW CHE INSERIRSCO NEL PROPRIO CONTENITORE
+  const li = document.createElement("li");
+  li.classList.add("cart-item");
+  cartItemsContainer.appendChild(li);
+  const row = document.createElement("div");
+  row.classList.add("row");
+  li.appendChild(row);
+
+  //CREO IL CONTENITORE IN CUI METTERO IL PREZZO ED IL NOME
+  const infoContainer = document.createElement("div");
+  infoContainer.classList.add("col-9", "fs-5");
+  row.appendChild(infoContainer);
+
+  //CREO IL DIV DEL NOME E QUELLO DEL PREZZO
+  const nome = createElementWithText("div", product.name);
+  nome.classList.add("fw-bold", "cartProductName");
+  infoContainer.appendChild(nome);
+  const price = createElementWithText("div", `Prezzo: ${product.price}€`);
+  infoContainer.appendChild(price);
+
+  //CREO IL CONTENITORE IN CUI METTERO IL PREZZO ED IL NOME
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("col-3");
+  row.appendChild(buttonContainer);
+
+  //CREO IL CONTENITORE IN CUI METTERO IL BOTTONE
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("btn", "btn-danger");
+  buttonContainer.appendChild(deleteButton);
+  const trashIcon = document.createElement("i");
+  trashIcon.classList.add("bi", "bi-trash");
+  deleteButton.appendChild(trashIcon);
+
+  //CREO LA VARIABILE PER MIRARE IL BADGE DEL PRODOTTO SU CUI STO LAVORANDO
+  const badge = document.getElementById(`badge${product._id}`);
+  badge.classList.remove("d-none")
+
+  //CREO LA VARIABILE PER LA SCRIATTA DEL CARRELLO VUOTO EE QUELLADEL NUMERO DEI PRODOTTI, LE FACCIO COMPARIRE E SCOMPARIRE NEL CASO IN CUI IL CARRELLO è VUOTO O HA ELEMENTI
+  const emptyCart = document.getElementById("emptyCart");
+  emptyCart.classList.add("d-none");
+  const numberCartPorducts = document.getElementById("numberCartPorducts");
+  //COME CONTENUTO DEL NUMERO DEI PRODOTTI VADO AD INSERIRE IL NUMERO DEI PRODOTTI USUFRENDO DEL NUMERO DI ELEMENTI NEL CONTENITORE
+  numberCartPorducts.textContent = `Numero prodotti: ${cartItemsContainer.childElementCount}`;
+  numberCartPorducts.classList.remove("d-none");
+
+  //CREO LA VARIABILE PER IL BOTTONE DI PAGAMENTO
+  const paymentButton = document.getElementById("paymentButton");
+  paymentButton.classList.remove("d-none");
+
+  //CREO UN EVENTO LEGATO AL PREMERE DEL BOTTONE DELETE
+  deleteButton.addEventListener("click", function deleteItem() {
+
+    //RIMUOVO IL PRODOTTO DALLA LISTA
+    li.remove();
+
+    //AGGIORNO LA SCRITTA DEL NUMERO DI PRODOTTI NEL CARRELLO
+    numberCartPorducts.textContent = `Numero prodotti: ${cartItemsContainer.childElementCount}`;
+
+    //CREO LA VARIABILE CHE HA COME TARGET IL NOME DEI PRODOTTI NEL CARRELLO
+    const cartNames = document.getElementsByClassName("cartProductName");
+
+    //TRASFORMO LA COLLEZIONE HTML IN UN ARRAY IN MDO TALE DA POTER USARE I METODI PER ARRAY SU DI ESSA
+    const cartNamesArray = Array.from(cartNames);
+
+    //USO IL METODO FIND PER VERIFICARE SE ESISTE ANCORA UN ELEMENTO CON IL NOME DEL PRODOTTO CANELLATO NEL CARRELLO E METTO UNA CONDIZIONE
+    const test = cartNamesArray.find(item => item.textContent.includes(product.name))
+    if (test === undefined) {
+
+      //SE NON CI SONO PIU PRODOTTI CON LO STESSO NOME DEL PRODOTTO APPENA RIMOSSO, RIMUOVO LA SCRITTA "AGGIUNTO AL CARRELLO"
+      badge.classList.add("d-none")
+
+      //PONGO ANCHE UNA CONDIZIONE NEL CASO IL CARRELLO SIA VUOTO E NEL CASO LO SIA FACCIO COMPARIRE LA SCRITTA CHE è VUOTO E RIMUOVO IL RESTO
+      if (cartItemsContainer.childElementCount == 0) {
+        emptyCart.classList.remove("d-none");
+        numberCartPorducts.classList.add("d-none");
+        paymentButton.classList.add("d-none");
+      }
+    }
+  })
 }
 
+//AGGIUNGO UNA FUNZIONE PER CUI SI ACCEDE AL BACKOFFICE SOLO METENDO LE CREDENZIALI GIUSTE
+const backofficeButton = document.getElementById("backofficeButton");
+const nameBackoffice = document.getElementById("nameBackoffice");
+const passwordBackoffice = document.getElementById("passwordBackoffice");
+const backofficeForm = document.getElementById("backofficeForm");
+
+//CREO UN EVENTO LEGATO AL SUBMIT DI QUESTO BOTTONE
+backofficeForm.addEventListener("submit", function(e) {
+  //FACCIO SI CHE AL SUMBIT LE AZIONI DI DEFAULT NON VENGANO ESEGUITE
+  e.preventDefault();
+
+  //SE LE CREDENZIALI SONO CORRETTE PER ACCEDERE AL BACKOFFICE, REINDIRIZZO AL BACKOFFICE, ALTRIMENTI FACCIO UN ALERT IN CUI SEGNALO L'ERRORE
+  if (nameBackoffice.value == "backoffice" && passwordBackoffice.value == "backoffice") {
+    location.href = "backoffice.html";
+  } else {
+    alert("Password o nome utente sbagliato")
+  }
+})

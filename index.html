@@ -19,17 +19,15 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="backoffice.html">Backoffice</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Prodotto</a>
-            </li>
           </ul>
         </div>
         <div class="fs-4">
-          <i class="bi bi-cart text-white"></i>
-          <i class="bi bi-person text-white"></i>
+          <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+            <i class="bi bi-cart text-white fs-4 "></i>
+          </button>
+          <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+            <i class="bi bi-person text-white fs-4"></i>
+          </button>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -52,18 +50,80 @@
 
           </ul>
         </div>
-        <!-- <select class="form-select mt-2 " aria-label="Default select example" id="sortSelect">
-          <option value="Ordine di caricamento" selected>Ordine di caricamento</option>
-          <option value="Brand">Brand</option>
-          <option value="Prezzo: crescente">Prezzo: crescente</option>
-          <option value="Prezzo: decrescente">Prezzo: decrescente</option>
-        </select> -->
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 d-flex justify-content-center gy-5" id="productSection">
 
       </div>
     </section>
+
+    <!-- CREO LA SEZIONE IN CUI ANDRO AD INSERIRE I CONTENUTI DEL CARRELLO ED IL MODALE PER "ACCEDERE" AL BACKOFFICE -->
+    <section>
+      <!-- CONENITORE DEL CARRELLO -->
+      <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Carrello</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="fs-5" id="emptyCart">
+            Il carrello è vuoto
+          </div>
+          <div class="fs-6" id="numberCartPorducts">
+            
+          </div>
+          <ul id="cartItemsContainer" class="ps-1">
+
+          </ul>
+        </div>
+        <div class="offcanvas-footer d-flex justify-content-center py-3">
+          <button type="button" class="btn btn-success btn-lg d-none" id="paymentButton">Pagamento</button>
+        </div>
+      </div>
+
+      <!-- CONTENITORE DEL MODALE PER ACCEDERE NEL BACKOFFICE -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Accesso al backoffice</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="backofficeForm">
+                <div>
+                  <label for="name">Nome utente:</label>
+                  <input type="text" id="nameBackoffice" required class="form-control" autocomplete="off"/>
+                </div>
+                <div class="my-3">
+                  <label for="description">Password:</label>
+                  <input type="password" id="passwordBackoffice" required class="form-control" autocomplete="off"/>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                  <button type="submit" class="btn btn-primary" id="backofficeButton">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- AGGIUNGO IL FOOTER ALLA PAGINA -->
+  <div class="container fs-5">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <i class="bi bi-bag-check"></i>
+        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+      </div> 
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3"><i class="bi bi-twitter-x"></i></li>
+        <li class="ms-3"><i class="bi bi-instagram"></i></li>
+        <li class="ms-3"><i class="bi bi-facebook"></i></li>
+      </ul>
+    </footer>
+  </div>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="script.js"></script>

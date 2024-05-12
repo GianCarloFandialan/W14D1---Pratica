@@ -44,3 +44,18 @@ main{
   object-fit: cover;
   object-position: center;
 }
+
+.cart-item, cartItemsContainer{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.cartProductName{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+          line-clamp: 2; 
+  -webkit-box-orient: vertical;
+}

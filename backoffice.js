@@ -43,11 +43,11 @@ function generateCard(product) {
 
 
   //CREO I VARI ELEMENTI CONTENUTI NELLA CARD
-  const name = createElementWithText("h5", product.name);
+  const name = createElementWithText("a", product.name);
   const description = createElementWithText("p", product.description);
   const brand = createElementWithText("li", "Brand: " + product.brand);
   const imageUrl = document.createElement("img");
-  const price = createElementWithText("li", `Price: ${product.price} €`);
+  const price = createElementWithText("li", `Prezzo: ${product.price} €`);
   const buttonsContainter = createElementWithText("li", '');
 
   //CREO I BOTTONI PER CANCELLARE O MODIFICARE
@@ -57,23 +57,25 @@ function generateCard(product) {
   const pencilIcon = createElementWithText("i", '');
 
   //AGGIUNGO LE VARIE CLASSI DI BOOTSRAP A QUESTI ELEMENTI
-  name.classList.add("card-title");
+  name.classList.add("card-title", "fs-5");
   description.classList.add("card-text");
   brand.classList.add("list-group-item");
   price.classList.add("list-group-item");
-  buttonsContainter.classList.add("list-group-item")
+  buttonsContainter.classList.add("list-group-item");
 
-  //AGGIUNGO LE VARIE CLASSI DI BOOTSRAP AI BOTTONI E LE ICONE
+  //AGGIUNGO LE VARIE CLASSI DI BOOTSTRAP AI BOTTONI E LE ICONE
   deleteButton.classList.add("btn", "btn-danger", "me-4");
   deleteButton.setAttribute("type", "button");
-  deleteButton.addEventListener("click", function prova() {
+  //AGGIUNGO UN EVENTO PER CUI SI GENERA UN MODALE LEGATO ALLA CARD PER CANCELLARE IL PRODOTTO, USO COME PARAMETRO I DATI DEL PRODOTTO
+  deleteButton.addEventListener("click", function delet() {
     generateDeleteModal(product);
   });
   deleteButton.setAttribute("data-bs-toggle", "modal");
   deleteButton.setAttribute("data-bs-target", `#deleteModal`);
   modifyButton.classList.add("btn", "btn-success");
   modifyButton.setAttribute("type", "button");
-  modifyButton.addEventListener("click", function prova() {
+  //AGGIUNGO UN EVENTO PER CUI SI GENERA UN MODALE LEGATO ALLA CARD PER MODIFICARE IL PRODOTTO, USO COME PARAMETRO I DATI DEL PRODOTTO
+  modifyButton.addEventListener("click", function modify() {
     generateModifyModal(product);
   });
   modifyButton.setAttribute("data-bs-toggle", "modal");
@@ -81,8 +83,10 @@ function generateCard(product) {
   trashIcon.classList.add("bi", "bi-trash");
   pencilIcon.classList.add("bi", "bi-pencil-square");
 
-  //AGGIUNGO L'ATTRIBUTO SRC ALL'IMMAGINE
+  //AGGIUNGO L'ATTRIBUTO SRC ALL'IMMAGINE E HREF AL NOME DEL PRODOTTO ED IL TARGET BLANK IN MODO TALE CHE AL CLICK SI APRA UNA NUOVA SCEHDA CON I DETTAGLI DEL PRODOTTO
   imageUrl.setAttribute("src", `${product.imageUrl}`);
+  name.setAttribute("href", `./dettagli.html?id=${product._id}`)
+  name.setAttribute("target", "_blank")
   
   //AGGIUNGO LE ICONE AI BOTTONI E I BOTTONI AL LORO CONTAINER
   deleteButton.appendChild(trashIcon);
@@ -100,8 +104,6 @@ function generateCard(product) {
 
   //AGGIUNGO LA CARD AL CONTENITORE
   productsContainer.appendChild(card)
-
-  return product
 }
 
 //CREO UNA FUNZIONE PER GENERARE I MODALI PER MODIFICARE
@@ -627,3 +629,15 @@ function suggestSearchBar(product) {
   li.appendChild(a);
   searchSuggestionList.appendChild(li);
 }
+
+//CREO UN EVENTO LEGATO AL SUBMIT DEL BOTTONO PER USCIRE DAL BACKOFFICE,CREO PRIMA LA VARIABILE DEL BOTTONE
+const exitButton = document.getElementById("exitButton");
+
+exitButton.addEventListener("click", function(e) {
+  //FACCIO SI CHE AL SUMBIT LE AZIONI DI DEFAULT NON VENGANO ESEGUITE
+  e.preventDefault();
+
+  //SE LE CREDENZIALI SONO CORRETTE PER ACCEDERE AL BACKOFFICE, REINDIRIZZO AL BACKOFFICE, ALTRIMENTI FACCIO UN ALERT IN CUI SEGNALO L'ERRORE
+  location.href = "index.html";
+
+})
