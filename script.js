@@ -28,7 +28,7 @@ async function fetchProducts() {
 //CREO LA FUNZIONE PER METTERE A SCHERMO I PRODOTTI OTTENUTI DALL'API
 function generateCard(product) {
 
-  //CREO UN DIV IN CUI ANDRO AD INSERIRE LA CARD
+  //CREO UN DIV IN CUI ANDRO AD INSERIRE LA CARD ED I SUOI CONTENUTI
   const card = document.createElement("div");
   card.classList.add("card", "col", "px-0", "mx-3");
   const cardBody = document.createElement("div");
@@ -75,7 +75,7 @@ function generateCard(product) {
   //AGGIUNGO L'ATTRIBUTO SRC ALL'IMMAGINE
   imageUrl.setAttribute("src", `${product.imageUrl}`);
 
-  //AGGIUNGO L'ICONa Al BOTTONE E IL BOTTONE AL SUO CONTAINER
+  //AGGIUNGO L'ICONA Al BOTTONE E IL BOTTONE AL SUO CONTAINER
   buyButton.appendChild(buyIcon);
   buttonsContainter.appendChild(buyButton);
 
@@ -121,6 +121,13 @@ document.addEventListener("DOMContentLoaded", function() {
         //OTTENGO GLI UTENTI FILTRATI
         const filteredProducts = filterProducts(products);
 
+        //SE NESSUN CARD CORRISPONDE ALLA RICERCA, FACCIO FUORI USCRE CHE NON CI SONO RISULTATI
+        if (filteredProducts.length == 0) {
+          noSearchResults.classList.remove("d-none");
+        } else {
+          noSearchResults.classList.add("d-none");
+        }
+
         //GENERO LE CARD CON SOLO GLI UTENTI FILTRATI
         filteredProducts.forEach((filteredProduct) => {
           generateCard(filteredProduct);
@@ -141,6 +148,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
       //OTTENGO GLI UTENTI FILTRATI
       const filteredProducts = filterProducts(products);
+
+      //SE NESSUN CARD CORRISPONDE ALLA RICERCA, FACCIO FUORI USCRE CHE NON CI SONO RISULTATI
+      if (filteredProducts.length == 0) {
+        noSearchResults.classList.remove("d-none");
+      } else {
+        noSearchResults.classList.add("d-none");
+      }
 
       //GENERO LE CARD CON SOLO GLI UTENTI FILTRATI
       filteredProducts.forEach((filteredProduct) => {
@@ -173,6 +187,7 @@ const searchBar = document.getElementById("searchBar");
 const searchButton = document.getElementById("searchButton");
 const searchSuggestionList = document.getElementById("searchSuggestionList");
 const sortSelect = document.getElementById("sortSelect");
+const noSearchResults = document.getElementById("noSearchResults");
 
 //CREO LA VARIABILE DEL CONTENITORE DEI CONTENUTI DEL CARRELLO
 const cartItemsContainer = document.getElementById("cartItemsContainer");

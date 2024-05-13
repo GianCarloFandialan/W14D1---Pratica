@@ -546,6 +546,13 @@ document.addEventListener("DOMContentLoaded", function() {
         //OTTENGO GLI UTENTI FILTRATI
         const filteredProducts = filterProducts(products);
 
+        //SE NESSUN CARD CORRISPONDE ALLA RICERCA, FACCIO FUORI USCRE CHE NON CI SONO RISULTATI
+        if (filteredProducts.length == 0) {
+          noSearchResults.classList.remove("d-none");
+        } else {
+          noSearchResults.classList.add("d-none");
+        }
+
         //GENERO LE CARD CON SOLO GLI UTENTI FILTRATI
         filteredProducts.forEach((filteredProduct) => {
           generateCard(filteredProduct);
@@ -569,7 +576,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
       //OTTENGO GLI UTENTI FILTRATI
       const filteredProducts = filterProducts(products);
-      console.log(filteredProducts);
+
+      //SE NESSUN CARD CORRISPONDE ALLA RICERCA, FACCIO FUORI USCRE CHE NON CI SONO RISULTATI
+      if (filteredProducts.length == 0) {
+        noSearchResults.classList.remove("d-none");
+      } else {
+        noSearchResults.classList.add("d-none");
+      }
 
       //GENERO LE CARD CON SOLO GLI UTENTI FILTRATI
       filteredProducts.forEach((filteredProduct) => {
@@ -600,6 +613,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const searchBar = document.getElementById("searchBar");
 const searchButton = document.getElementById("searchButton");
 const searchSuggestionList = document.getElementById("searchSuggestionList");
+const noSearchResults = document.getElementById("noSearchResults");
 
 //FUNZIONE PER FILTRARE GLI UTENTI BASE ALL'INPUT DI RICERCA
 function filterProducts(products) {

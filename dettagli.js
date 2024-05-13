@@ -77,5 +77,15 @@ document.addEventListener("DOMContentLoaded", () => {
     divDescrizione.textContent = `Description: ${details.description}`
     detailsDiv.appendChild(divDescrizione);
 
+    //CREO UN BOTTONE PER POTER "AGGIUNGERE AL CARRELLO" (FUNZIONE SOLO VISIVA)
+    const cartButton = document.createElement("div");
+    cartButton.classList.add("my-3", "btn", "btn-success");
+    cartButton.textContent = 'Aggiungi al carrello'
+    detailsDiv.appendChild(cartButton);
+
+    //CREO L'ICONA DA AGGIUNGERE AL BOTTONE
+    const cartIcon = document.createElement("div");
+    cartIcon.classList.add("bi", "bi-cart");
+    cartButton.appendChild(cartIcon);
   })
 })
