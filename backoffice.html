@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+B<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,14 +17,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Backoffice</a>
+              <!-- A QUESTO LINK HO AGGIUNTO LA FUNZIONALITA DI RICARICARE TUTTI I PRODOTTI DELLA PAGINA , COM SE TORNASSI NELLA PAGINA "HOME" IN UNA PAGINA NORMALE -->
+              <a class="nav-link active" href="#" id="backofficeButton">Backoffice</a>
             </li>
           </ul>
         </div>
         <div class="fs-4">
+          <!-- BOTTONE PER POTER TORNARE USCIRE DAL BACKOFFICE -->
           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exitModal">
             <i class="bi bi-person text-white fs-4"></i>
           </button>
+          <!-- BOTTONE PER LA NAVBAR -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -75,18 +78,24 @@
           <button class="btn btn-outline-secondary" type="submit" id="searchButton"><i class="bi bi-search"></i></button>
         </form>
         <div>
+          <!-- QUI ANDRO AD INSERIRE I SUGGERIMENTI DELLA BARRA DI RICERCA -->
           <ul id="searchSuggestionList">
 
           </ul>
         </div>
       </div>
+      <!-- QUESTA SCRITTA COMPARE SOLO NEL CASO NON CI SIA NESSUNA CORRSIPONDENZA NELLA RICERCA -->
       <div class="fw-bold fs-2 text-center d-none mb-5" id="noSearchResults">Nessun prodotto corrisponde alla ricerca</div>
+
+      <!-- CONTENITORE IN CUI ANDRO AD INSERIRE I PRODOTTI -->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 d-flex justify-content-center gy-5 " id="productsContainer"> 
 
       </div>
+      <!-- CONTENITORE DEL MODALE CHE SI ANDRA A GENERARE PER CANCELLARE IL PRODOTTTO-->
       <div id="deleteModalContainer">
 
       </div>
+            <!-- CONTENITORE DEL MODALE CHE SI ANDRA A GENERARE PER MODIFICARE IL PRODOTTTO-->
       <div id="modifyModalContainer">
 
       </div>

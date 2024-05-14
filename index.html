@@ -17,17 +17,27 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <!-- A QUESTO LINK HO AGGIUNTO LA FUNZIONALITA DI RICARICARE TUTTI I PRODOTTI DELLA PAGINA , COM SE TORNASSI NELLA PAGINA "HOME" IN UNA PAGINA NORMALE -->
+              <a class="nav-link active" aria-current="page" href="#" id="homeButton">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">Offerta del giorno</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">Categorie</a>
             </li>
           </ul>
         </div>
         <div class="fs-4">
+          <!-- BOTTONE DEL CARRELLO PER FAR USCIRE LA SIDEBARD CON IL CONTENUTO DI ESSO E PER PROCEDERE AL PAGAMENTO -->
           <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
             <i class="bi bi-cart text-white fs-4 "></i>
           </button>
+          <!-- BOTTONE PER APRIRE IL MODALE PER ACCEDERE AL BACKOFFICE -->
           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
             <i class="bi bi-person text-white fs-4"></i>
           </button>
+          <!-- BOTTONE PER LA NAVBAR -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,20 +48,49 @@
 
   <!-- FACCIO IL MAIN IN CUI ANDRO AD INSERIRE IL CONTENUTO DELLA PAGINA -->
   <main>
+
+    <!-- INSERISCO UNA SEZIONE PER IL JUMBOTRON SOLO PER RENDERE PIU REALISTICA LA PAGINA -->
+    <div class="container my-5">
+      <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <i class="bi bi-bag-check fs-1 text-black "></i>
+        <h1 class="text-body-emphasis">E-COMMERCE.com</h1>
+        <p class="col-lg-8 mx-auto fs-5 text-muted">
+          I migliori prodotti li puoi trovare solo su e-commerce, qui sotto troverai due bottoni, uno per andare nella pagina dei prodotti consigliati e una per accedere alle offerte esclusive
+        </p>
+        <div class="d-inline-flex gap-2 mb-5">
+          <button class="d-inline-flex align-items-center btn btn-dark btn-lg px-4 rounded-pill" type="button">
+            Prodotti consigliati
+            <i class="bi bi-arrow-right ms-2 "></i>
+          </button>
+          <button class="btn btn-outline-dark btn-lg px-4 rounded-pill" type="button">
+            Offerte esclusive
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEZIONE IN CUI ANDRO AD INSERIRE I PRODOTTI -->
     <section>
       <h1 class="text-center">Prodotti</h1>
+      <!-- QUESTO è IL CONTENITORE DELLA BARRA DI RICERCA -->
       <div class="d-flex align-items-center flex-column mb-5">
         <form class="input-group" role="search">
           <input type="text" class="form-control" placeholder="Cerca il prodotto" aria-label="Search" aria-describedby="searchButton" type="search" id="searchBar" autocomplete="off">  
           <button class="btn btn-outline-secondary" type="submit" id="searchButton"><i class="bi bi-search"></i></button>        
         </form>
+
+        <!-- QUI ANDRO AD INSERIRE I SUGGERIMENTI DELLA BARRA DI RICERCA -->
         <div>
           <ul id="searchSuggestionList">
 
           </ul>
         </div>
       </div>
+
+      <!-- QUESTA SCRITTA COMPARE SOLO NEL CASO NON CI SIA NESSUNA CORRSIPONDENZA NELLA RICERCA -->
       <div class="fw-bold fs-2 text-center d-none mb-5" id="noSearchResults">Nessun prodotto corrisponde alla ricerca</div>
+
+      <!-- CONTENITORE IN CUI ANDRO AD INSERIRE I PRODOTTI -->
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 d-flex justify-content-center gy-5" id="productSection">
 
       </div>
@@ -59,23 +98,28 @@
 
     <!-- CREO LA SEZIONE IN CUI ANDRO AD INSERIRE I CONTENUTI DEL CARRELLO ED IL MODALE PER "ACCEDERE" AL BACKOFFICE -->
     <section>
-      <!-- CONENITORE DEL CARRELLO -->
+      <!-- CONTENITORE DEL CARRELLO -->
       <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Carrello</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+          <!-- SCRITTA DI DEFAULT CHE COMPARE SOLO NEL CASO IL CARRELLO SIA VUOTO -->
           <div class="fs-5" id="emptyCart">
             Il carrello è vuoto
           </div>
+          <!-- CONTENITORE DEL CONTATORE DI PRODOTTI NEL CARRELLO -->
           <div class="fs-6" id="numberCartPorducts">
             
           </div>
+          <!-- CONTENITORE DEI PRODOTTI CHE ANDRO AD INSERIRE NEL CARRELLO -->
           <ul id="cartItemsContainer" class="ps-1">
 
           </ul>
         </div>
+
+        <!-- CONTENITORE DEL BOTTONE PER PROCEDERE AL PAGAMENTO -->
         <div class="offcanvas-footer d-flex justify-content-center py-3">
           <button type="button" class="btn btn-success btn-lg d-none" id="paymentButton">Pagamento</button>
         </div>

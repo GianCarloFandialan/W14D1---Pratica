@@ -178,6 +178,24 @@ document.addEventListener("DOMContentLoaded", function() {
         })
       }
     })
+
+    //AGGIUNGO LA FUNZIONALITA CHE SE SI VUOLE RIVEDERE TUTTI I PRODOTTI BASTA PREMERE IL TASTO HOME E RICOMPAIONO TUTTI
+      homeButton.addEventListener("click", function ricaricaCarte(e) {
+
+        //PONGO LA CONDIZIONE PER CUI QUESTO EVENTO SI VERIFICA SOLO NEL CASO IN CUI NON TUTTE LE CARD SONO STATE CARICATE
+        if (productSection.childElementCount != products.length) {
+          // PEVENGO IL COMPORTAMENTO PREDEFINITO 
+          e.preventDefault();
+
+          //RICHIAMO LA FUNZIONE PER GENERARE TUTTE LE CARD
+          products.forEach(product => {
+            generateCard(product)
+          })
+
+          //FACCIO SCOMPARIRE LA SCRITTA "Nessun prodotto corrisponde alla ricerca"
+          noSearchResults.classList.add("d-none");
+        }
+      })
   });
 
 });
@@ -188,6 +206,7 @@ const searchButton = document.getElementById("searchButton");
 const searchSuggestionList = document.getElementById("searchSuggestionList");
 const sortSelect = document.getElementById("sortSelect");
 const noSearchResults = document.getElementById("noSearchResults");
+const homeButton = document.getElementById("homeButton")
 
 //CREO LA VARIABILE DEL CONTENITORE DEI CONTENUTI DEL CARRELLO
 const cartItemsContainer = document.getElementById("cartItemsContainer");
